@@ -1,8 +1,3 @@
-import leftArrow from '@/assets/icons/left-arrow.svg'
-import rightArrow from '@/assets/icons/right-arrow.svg'
-import upArrow from '@/assets/icons/up-arrow.svg'
-import downArrow from '@/assets/icons/down-arrow.svg'
-
 interface ButtonProps {
   text?: string,
   onClick: () => void,

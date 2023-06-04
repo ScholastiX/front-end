@@ -1,11 +1,8 @@
-'use client'
+import { useNavigate } from "react-router-dom";
+import Button from "../components/button.tsx";
 
-import Button from '@/components/button'
-import { useRouter } from 'next/navigation'
-
-
-export default function Home() {
-  const navigate = useRouter().push
+export default function Student() {
+  const navigate = useNavigate();
 
   return (
     <main>

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from "react";
 
 interface HeaderProps {
@@ -8,7 +6,8 @@ interface HeaderProps {
 }
 
 export default function Sort ({callback, selected}: HeaderProps) {
-  const [active, setActive] = useState<boolean>(false)
+  const [active, setActive] = useState<boolean>(false);
+
   return (
     <div className={`sort ${active ? "active" : ""}`}>
       <div className="selected" onClick={() => setActive(!active)}>

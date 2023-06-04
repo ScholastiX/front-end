@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from "react";
 import SearchProfession from "./search-profession";
 
@@ -24,6 +22,7 @@ interface HeaderProps {
 }
 
 export default function Filter ({callback, callbackProfession, defaultFilter}: HeaderProps) {
+  console.log("render filter");
   const [active, setActive] = useState<boolean>(false)
 
   return <div className={`filter ${active ? "active" : ""}`}>

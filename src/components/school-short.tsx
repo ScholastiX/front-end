@@ -1,7 +1,7 @@
-import populationIcon from "@assets/icons/population.svg"
-import rankIcon from "@assets/icons/rank.svg"
-import OCEIcon from "@assets/icons/OCE.svg"
-import { useRouter } from "next/navigation";
+import populationIcon from "../assets/icons/population.svg";
+import rankIcon from "../assets/icons/rank.svg";
+import OCEIcon from "../assets/icons/OCE.svg";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   school: string;
@@ -13,7 +13,7 @@ interface HeaderProps {
 }
 
 export default function SchoolShort ({school, population, distance, rating, score, id}: HeaderProps) {
-  const navigate = useRouter().push
+  const navigate = useNavigate();
 
   return (
     <div className="school-short" onClick={() => navigate(`/school/${id}`)}>
@@ -23,15 +23,15 @@ export default function SchoolShort ({school, population, distance, rating, scor
       </div>
       <div className="school-short__stats">
         <div>
-          <img src={rankIcon.src} alt="rank" />
+          <img src={rankIcon} alt="rank" />
           <p>{rating}</p>
         </div>
         <div>
-          <img src={OCEIcon.src} alt="" />
+          <img src={OCEIcon} alt="" />
           <p>{score}</p>
         </div>
         <div>
-          <img src={populationIcon.src} alt="" />
+          <img src={populationIcon} alt="" />
           <p>{population}</p>
         </div>
       </div>

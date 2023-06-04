@@ -1,7 +1,3 @@
-'use client'
-
-import Button from '@/components/button'
-
 const data = {
   "municipality": "Siguldas novads",
   "faculty_nr": "4319901124  ",
@@ -27,7 +23,7 @@ const data = {
   "ranktotal": "285"
 } as const;
 
-export default function View({ params }: { params: { school: string } }) {
+export default function School({ params }: { params: { school: string } }) {
   return (
     <main>
       <h1>{data.faculty_name}</h1>

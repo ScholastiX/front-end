@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useState } from "react"
 interface HeaderProps {
   callback: (profession: string) => void

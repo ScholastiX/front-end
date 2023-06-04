@@ -1,11 +1,8 @@
-'use client'
-
-import Button from '@/components/button'
-import { useRouter } from 'next/navigation'
-
+import { useNavigate } from "react-router-dom";
+import Button from '../components/button'
 
 export default function Home() {
-  const navigate = useRouter().push
+  const navigate = useNavigate();
 
   return (
     <main>
