@@ -1,0 +1,88 @@
+.filter {
+  width: 8rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+  background-color: $white;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: 0px 0px 0px rgba(42, 43, 46, 0.35);
+  transition-property: box-shadow, height, width;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+
+  &.active {
+    height: 30rem;
+    width: 15rem;
+    box-shadow: 4px 4px 16px rgba(42, 43, 46, 0.35);
+
+    .selected::before {
+      transform: rotate(180deg) translateY(50%);
+    }
+  }
+
+  .title {
+    padding: .5rem 1rem;
+    background: $black;
+    color: $white;
+    @include S;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding: .5rem 1rem;
+    gap: 1rem;
+
+    p {
+      @include M;
+      width: max-content;
+    }
+
+    & > input {
+      width: 100%;
+      height: 1.25rem;
+      background-color: $white;
+      outline: none;
+      border: 1px solid $gray;
+      border-radius: 0.25rem;
+      padding: .125rem;
+      padding-right: 0;
+    }
+
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      width: 8rem;
+
+      label {
+        @include S;
+        color: $gray;
+        width: 1.25rem;
+      }
+
+      input {
+        width: 100%;
+        height: 1.25rem;
+        background-color: $white;
+        outline: none;
+        border: 1px solid $gray;
+        border-radius: 0.25rem 0 0 0.25rem;
+        padding: .125rem;
+        padding-right: 0;
+      }
+    }
+  }
+}
