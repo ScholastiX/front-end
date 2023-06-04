@@ -1,0 +1,64 @@
+.button {
+  background: $green;
+  padding: .5rem 1rem;
+  border-radius: .25rem;
+  @include M;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: transform .2s ease-in-out;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  &:hover {
+    transform: scale(1.01) translateY(-.01rem);
+  }
+
+  &:active {
+    transform: scale(1) translateY(0);
+  }
+
+  img {
+    height: 1.5rem;
+  }
+
+  &.no-text {
+    padding: .5rem;
+  }
+
+  &.small {
+    padding: .25rem .5rem;
+    @include S;
+
+    img {
+      height: 1rem;
+    }
+  }
+
+  &.large {
+    padding: 1rem 2rem;
+    @include L-roboto;
+    border-radius: 1rem;
+
+    img {
+      height: 2rem;
+    }
+  }
+
+  &.primary {
+    background: $blue;
+    color: $white;
+
+    svg path {
+      fill: $white;
+    }
+  }
+
+  &.arrow-left {
+    flex-direction: row-reverse;
+  }
+}

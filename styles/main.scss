@@ -1,0 +1,30 @@
+@import "colors";
+@import "typography";
+
+@import "components/button";
+@import "components/school-short";
+@import "components/sort";
+
+@import "pages/index";
+@import "pages/students";
+@import "pages/schools";
+
+body {
+  background-color: $white;
+  padding: 2rem 2rem;
+
+  @media only screen and (min-width: 79rem) {
+    padding: 2rem calc(50vw - (75rem / 2));
+  }
+}
+
+:root {
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $black;
+}

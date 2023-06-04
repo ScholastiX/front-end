@@ -1,0 +1,31 @@
+@import 'https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap';
+
+@mixin XL {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+@mixin L {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@mixin L-roboto {
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+@mixin M {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+@mixin S {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
