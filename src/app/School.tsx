@@ -1,3 +1,12 @@
+'use client'
+
+import Marker from '../components/marker';
+import GoogleMapReact from "google-map-react"
+
+import populationIcon from "../assets/icons/population.svg"
+import rankIcon from "../assets/icons/rank.svg"
+import OCEIcon from "../assets/icons/OCE.svg"
+
 const data = {
   "municipality": "Siguldas novads",
   "faculty_nr": "4319901124  ",
@@ -23,39 +32,50 @@ const data = {
   "ranktotal": "285"
 } as const;
 
-export default function School({ params }: { params: { school: string } }) {
+export default function AllSchools({ params }: { params: { school: string } }) {
+  const GOOGLEKEY="AIzaSyBJbC7DxiyphaQrPJLnZoXxYaXYD5Btf-I"
+  const location = {
+    address: data.address,
+    lat: data.lat,
+    lng: data.lon,
+  }
+
   return (
     <main>
-      <h1>{data.faculty_name}</h1>
-      <small>{data.distance.toFixed(0)} km attālumā</small>
-      <div>
-        <div>{data.rank}/{data.ranktotal}</div>
-        <div>OCE: {data.oce_index}</div>
-        <div>{data.pupils_grades_1_12_total}</div>
-        <div>{data.subordinate === "Pašvaldība " ? "Pašvaldības" : "Privātā"} izglītības iestāde</div>
+      <div className="title">
+        <h1>{data.faculty_name}</h1>
+        <p>{data.distance.toFixed(0)} km attālumā</p>
       </div>
-      <div>
-        Apmeklē skolu klātienē
-        <p>
-          {data.address}
-        </p>
+      <div className='stats'>
+        <div><img src={rankIcon} alt="Rank" /><p>{data.rank}/{data.ranktotal}</p></div>
+        <div><img src={OCEIcon} alt="OCE" /><p>{data.oce_index}</p></div>
+        <div><img src={populationIcon} alt="Pupil count" /><p>{data.pupils_grades_1_12_total}</p></div>
+        <div><img src="" alt="" /><p>{data.subordinate === "Pašvaldība " ? "Pašvaldības" : "Privātā"} izglītības iestāde</p></div>
       </div>
-      <div>
-        Piesaki vizīti
-        <p>
-          Direktors: <span className="director">{data.director}</span>
-        </p>
-        <p>
-          Tālrunis: {data.phone}
-        </p>
-        <p>
-          E-pasts: {data.email}
-        </p>
-      </div>
-      <div>
-        Atsauces (4.7/5, 204)
-        <div>
+      <h2>Piesaki vizīti</h2>
+      <div className="calendly-inline-widget" data-url="https://calendly.com/jekabs-1" style={{minWidth: "320px", height: "700px"}}></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      <h2>Apmeklē skolu klātienē</h2>
+      <div className="map">
+        <div className="google-map" style={{width: "700px", height: "700px"}}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: GOOGLEKEY }}
+            defaultCenter={location}
+            defaultZoom={14}
+          >
+          <Marker
+            lat={location.lat}
+            lng={location.lng}
+            text={location.address}
+          />
+          </GoogleMapReact>
         </div>
+      </div>
+      <div className="contacts">
+        <h2>Kontaktē skolu</h2>
+        <p>Direktors: <span className="director">{data.director}</span></p>
+        <p>Tālrunis: {data.phone}</p>
+        <p>E-pasts: {data.email}</p>
       </div>
     </main>
   )
