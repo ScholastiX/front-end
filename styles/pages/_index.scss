@@ -2,6 +2,9 @@ main {
   h1 {
     @include XL;
   }
+  h2 {
+    @include XL;
+  }
   p {
     @include S;
   }
@@ -27,6 +30,31 @@ main {
         width: 100%;
         max-width: 30rem;
       }
+    }
+  }
+
+  .about {
+    height: calc(100svh - 2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2rem 0;
+    line-height: 2.5em;
+
+    h2 {
+      padding-bottom: 1rem;
+    }
+    p {
+      @include M;
+      font-weight: normal;
+    }
+
+    h2, p {
+      flex: 0;
+    }
+
+    .spacer {
+      flex: 1;
     }
   }
 }
