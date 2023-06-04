@@ -56,22 +56,39 @@ export default async function Home() {
   const sortingCallback = (category: "OCE" | "populous" | "rank" | "distance") => {
     setSort(category)
   }
+
   const schools = async () => {
-    const res = await fetch("http://scholastix.nav.lv:1280/", {
-      method: "POST",
-      body: JSON.stringify({
-        pagination: {size: 0, offset: 10},
-        targetLocation: {lat: 0, log: 0},
-        direction: "desc",
-        sortBy: "pupils"
-      }),
-    }).then(res => res.json()).catch(err => console.error(err))
-    console.log(res)
+    console.log(filter)
+    // const res = await fetch("http://scholastix.nav.lv:1280/", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     pagination: {size: 0, offset: 10},
+    //     targetLocation: {lat: 0, log: 0},
+    //     direction: "desc",
+    //     sortBy: "pupils",
+    //     filter: {
+    //       professions: [filter.profession],
+    //       distance: {
+    //         min: filter.distance.min,
+    //         max: filter.distance.max
+    //       },
+    //       pupils: {
+    //         min: filter.pupils.min,
+    //         max: filter.pupils.max
+    //       },
+    //       oce: {
+    //         min: filter.rating.min,
+    //         max: filter.rating.max
+    //       }
+    //     }
+    //   }),
+    // }).then(res => res.json()).catch(err => console.error(err))
+    // console.log(res)
   }
 
-  // useEffect(() => {
-  //   schools()
-  // }, [sort])
+  useEffect(() => {
+    schools().catch(err => console.error(err)).then(res => console.log(res))
+  }, [sort, filter])
 
   return (
     <main>

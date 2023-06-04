@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import SearchProfession from "./search-profession";
 
 interface HeaderProps {
   callback: (set: "pupils" | "distance" | "rating", minMax: "min" | "max", value: number) => void,
@@ -62,7 +63,7 @@ export default function Filter ({callback, callbackProfession, defaultFilter}: H
     </div>
     <div className="profession">
       <p>Profesija</p>
-      <input type="text" defaultValue={""} onChange={(e) => callbackProfession(e.target.value)} />
+      <SearchProfession callback={callbackProfession} />
     </div>
   </div>
 }
