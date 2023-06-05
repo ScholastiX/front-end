@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import Filter, { FilterType } from "../components/filter.tsx";
 import SchoolShort from "../components/school-short.tsx";
-import Sort from "../components/sort.tsx";
+import Sort, { SortType } from "../components/sort.tsx";
 import { useNavigate } from "react-router-dom";
 
 import arrowBack from "../assets/icons/left-arrow.svg";
 
 export default function AllSchools() {
   const navigate = useNavigate();
-  const [ sort, setSort ] = useState<"OCE" | "populous" | "rank" | "distance">("OCE");
+  const [ sort, setSort ] = useState<SortType>("oce_rank");
+  const [ ascending, setAscending ] = useState(false);
   const [ filter, setFilter ] = useState({
     pupils: {
       min: 0,
@@ -48,8 +49,9 @@ export default function AllSchools() {
     });
   }, []);
 
-  const sortingCallback = useCallback((category: "OCE" | "populous" | "rank" | "distance") => {
-    setSort(category)
+  const sortingCallback = useCallback((category: SortType, asc: boolean) => {
+    setSort(category);
+    setAscending(asc);
   }, []);
 
   const schools = useCallback(async () => {
@@ -64,8 +66,8 @@ export default function AllSchools() {
           pagination: {size: 10, offset: 0},
           ...(geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : {}),
           sort: {
-            direction: "desc",
-            sortBy: "pupils",
+            direction: ascending ? "asc" : "desc",
+            sortBy: sort,
           },
           ...(enabledFilters.length > 0 ? {
             filter: {
@@ -84,7 +86,7 @@ export default function AllSchools() {
     } catch (e) {
       console.error(e);
     }
-  }, [ filter, enabledFilters, geolocation ]);
+  }, [ filter, enabledFilters, geolocation, ascending, sort ]);
 
   const filterToggle = useCallback((filter: FilterType) => {
     console.log(enabledFilters);
@@ -97,7 +99,7 @@ export default function AllSchools() {
 
   useEffect(() => {
     schools().catch(console.error);
-  }, [ sort, filter, geolocation, enabledFilters ]);
+  }, [ sort, ascending, filter, geolocation, enabledFilters ]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -123,7 +125,7 @@ export default function AllSchools() {
           <div className="schools">
             <h1><img src={arrowBack} alt="Back arrow" onClick={() => navigate(-1)} /> Skolas</h1>
             <div className="search-section">
-              <Sort callback={sortingCallback} selected={sort} />
+              <Sort callback={sortingCallback} selected={sort} ascending={ascending} />
               <Filter
                     callback={filterCallback}
                     callbackProfession={filterProfessionCallback}
