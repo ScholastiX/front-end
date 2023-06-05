@@ -55,7 +55,6 @@ export default function AllSchools() {
   }, []);
 
   const schools = useCallback(async () => {
-    console.log(".", (geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : {}));
     try {
       const res = await fetch("http://scholastix.nav.lv:1280/", {
         method: "POST",
@@ -64,7 +63,7 @@ export default function AllSchools() {
         },
         body: JSON.stringify({
           pagination: {size: 10, offset: 0},
-          ...(geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : {}),
+          ...(geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : { targetLocation: { lat: 56.9630496, lon: 24.1075914 } }),
           sort: {
             direction: ascending ? "asc" : "desc",
             sortBy: sort,
@@ -79,7 +78,6 @@ export default function AllSchools() {
         }),
       });
       const data = await res.json();
-      console.log(data);
       if (res.ok) {
         setFoundSchools(data);
       }
@@ -89,7 +87,6 @@ export default function AllSchools() {
   }, [ filter, enabledFilters, geolocation, ascending, sort ]);
 
   const filterToggle = useCallback((filter: FilterType) => {
-    console.log(enabledFilters);
     if (enabledFilters.includes(filter)) {
       setEnabledFilters(enabledFilters.filter(v => v !== filter));
     } else {
@@ -107,7 +104,6 @@ export default function AllSchools() {
         setGeolocation(res);
       });
       let interval = setInterval(async () => {
-        console.log(".");
         const perm = await navigator.permissions.query({ name: "geolocation" });
         if (perm.state !== "prompt") {
           clearInterval(interval);
