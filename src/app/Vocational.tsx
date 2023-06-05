@@ -14,7 +14,7 @@ export default function Vocational() {
       min: 0,
       max: 1000
     },
-    rating: {
+    oce_rank: {
       min: 0,
       max: 1000
     },

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import Filter from "../components/filter.tsx";
+import Filter, { FilterType } from "../components/filter.tsx";
 import SchoolShort from "../components/school-short.tsx";
 import Sort from "../components/sort.tsx";
 import { useNavigate } from "react-router-dom";
@@ -16,19 +16,19 @@ export default function AllSchools() {
     },
     distance: {
       min: 0,
-      max: 10000
+      max: 10
     },
-    rating: {
+    oce_rank: {
       min: 0,
-      max: 1000
+      max: 100
     },
     professions: [] as string[],
   });
-  const [ enabledFilters, setEnabledFilters ] = useState<('pupils'|'distance'|'rating'|'professions')[]>([]);
+  const [ enabledFilters, setEnabledFilters ] = useState<FilterType[]>([]);
   const [ foundSchools, setFoundSchools ] = useState<any[]>([]);
   const [ geolocation, setGeolocation ] = useState<GeolocationPosition|null>(null);
 
-  const filterCallback = useCallback((set: "pupils" | "distance" | "rating", minMax: "min" | "max", value: number) => {
+  const filterCallback = useCallback((set: "pupils" | "distance" | "oce_rank", minMax: "min" | "max", value: number) => {
     if (minMax === "min" && value > filter[set].max) return;
     if (minMax === "max" && value < filter[set].min) return;
     if (value < 0) return;
@@ -68,7 +68,11 @@ export default function AllSchools() {
             sortBy: "pupils",
           },
           ...(enabledFilters.length > 0 ? {
-            filter: { ...enabledFilters.map(v => ({ [v]: filter[v] })) },
+            filter: {
+              ...enabledFilters
+                    .map(v => ({ [v]: filter[v] }))
+                    .reduce((a, b) => ({...a, ...b}), {})
+            },
           } : {}),
         }),
       });
@@ -82,9 +86,18 @@ export default function AllSchools() {
     }
   }, [ filter, enabledFilters, geolocation ]);
 
+  const filterToggle = useCallback((filter: FilterType) => {
+    console.log(enabledFilters);
+    if (enabledFilters.includes(filter)) {
+      setEnabledFilters(enabledFilters.filter(v => v !== filter));
+    } else {
+      setEnabledFilters([...enabledFilters, filter]);
+    }
+  }, [ enabledFilters ]);
+
   useEffect(() => {
     schools().catch(console.error);
-  }, [ sort, filter, geolocation ]);
+  }, [ sort, filter, geolocation, enabledFilters ]);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -111,7 +124,13 @@ export default function AllSchools() {
             <h1><img src={arrowBack} alt="Back arrow" onClick={() => navigate(-1)} /> Skolas</h1>
             <div className="search-section">
               <Sort callback={sortingCallback} selected={sort} />
-              <Filter callback={filterCallback} callbackProfession={filterProfessionCallback} defaultFilter={filter} />
+              <Filter
+                    callback={filterCallback}
+                    callbackProfession={filterProfessionCallback}
+                    defaultFilter={filter}
+                    enabledFilters={enabledFilters}
+                    filterToggle={filterToggle}
+              />
             </div>
             {foundSchools.map((v, i) => <SchoolShort
                   key={i} distance={v.distance} school={v.faculty_name}

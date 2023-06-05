@@ -45,7 +45,7 @@
     padding: .5rem 1rem;
     gap: 1rem;
 
-    p {
+    > label {
       @include M;
       width: max-content;
     }
@@ -65,6 +65,10 @@
       height: fit-content;
       @include S;
       color: $black;
+    }
+
+    &:not(:has(input:checked)) > div {
+      opacity: .4;
     }
 
     div {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import SearchProfession from "./search-profession";
 
 interface HeaderProps {
-  callback: (set: "pupils" | "distance" | "rating", minMax: "min" | "max", value: number) => void,
+  callback: (set: "pupils" | "distance" | "oce_rank", minMax: "min" | "max", value: number) => void,
   callbackProfession: (profession: string) => void,
   defaultFilter: {
     pupils: {
@@ -13,21 +13,25 @@ interface HeaderProps {
       min: number,
       max: number
     },
-    rating: {
+    oce_rank: {
       min: number,
       max: number
     },
     professions: string[]
-  }
+  },
+  enabledFilters: FilterType[],
+  filterToggle: (f: FilterType) => void,
 }
 
-export default function Filter ({callback, callbackProfession, defaultFilter}: HeaderProps) {
-  const [active, setActive] = useState<boolean>(false)
+export type FilterType = 'pupils'|'distance'|'oce_rank'|'professions';
+
+export default function Filter ({ callback, callbackProfession, defaultFilter, filterToggle, enabledFilters }: HeaderProps) {
+  const [active, setActive] = useState<boolean>(false);
 
   return <div className={`filter ${active ? "active" : ""}`}>
     <p onClick={() => setActive(!active)} className="title">Filtri</p>
     <div className="pupils">
-      <p>Skolēnu skaits</p>
+      <label><input type="checkbox" checked={enabledFilters.includes('pupils')} onChange={() => filterToggle('pupils')}/> Skolēnu skaits</label>
       <div className="min">
         <label htmlFor="min-pupils">Min</label>
         <input type="number" id="min-pupils" defaultValue={defaultFilter.pupils.min} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("pupils", "min", parseInt(e.target.value))}} />
@@ -38,7 +42,7 @@ export default function Filter ({callback, callbackProfession, defaultFilter}: H
       </div>
     </div>
     <div className="distance">
-      <p>Attālums</p>
+      <label><input type="checkbox" checked={enabledFilters.includes('distance')} onChange={() => filterToggle('distance')}/> Attālums</label>
       <div className="min">
         <label htmlFor="min-distance">Min</label>
         <input type="number" id="min-distance" defaultValue={defaultFilter.distance.min} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("distance", "min", parseInt(e.target.value))}} />
@@ -49,18 +53,18 @@ export default function Filter ({callback, callbackProfession, defaultFilter}: H
       </div>
     </div>
     <div className="rating">
-      <p>Reitings</p>
+      <label><input type="checkbox" checked={enabledFilters.includes('oce_rank')} onChange={() => filterToggle('oce_rank')}/> Reitings</label>
       <div className="min">
         <label htmlFor="min-rating">Min</label>
-        <input type="number" id="min-rating" defaultValue={defaultFilter.rating.min} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("rating", "min", parseInt(e.target.value))}} />
+        <input type="number" id="min-rating" defaultValue={defaultFilter.oce_rank.min} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("oce_rank", "min", parseInt(e.target.value))}} />
       </div>
       <div className="max">
         <label htmlFor="max-rating">Max</label>
-        <input type="number" id="max-rating" defaultValue={defaultFilter.rating.max} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("rating", "max", parseInt(e.target.value))}} />
+        <input type="number" id="max-rating" defaultValue={defaultFilter.oce_rank.max} onChange={(e) => {if (!isNaN(parseInt(e.target.value))) callback("oce_rank", "max", parseInt(e.target.value))}} />
       </div>
     </div>
     <div className="profession">
-      <p>Profesija</p>
+      <label><input type="checkbox" checked={enabledFilters.includes('professions')} onChange={() => filterToggle('professions')}/> Profesija</label>
       <SearchProfession callback={callbackProfession} />
     </div>
   </div>
