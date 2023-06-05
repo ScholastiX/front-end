@@ -9,7 +9,7 @@ import arrowBack from "../assets/icons/left-arrow.svg";
 export default function AllSchools() {
   const navigate = useNavigate();
   const [ sort, setSort ] = useState<SortType>("oce_rank");
-  const [ ascending, setAscending ] = useState(false);
+  const [ ascending, setAscending ] = useState(true);
   const [ filter, setFilter ] = useState({
     pupils: {
       min: 0,

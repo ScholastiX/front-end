@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/button.tsx";
 
 import arrowBack from "../assets/icons/left-arrow.svg";
+import testScreenShoot from "../assets/images/test.png";
 
 export default function Student() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Student() {
         <div className="header">
           <h1><img src={arrowBack} alt="Back arrow" onClick={() => navigate(-1)} /> Laiks veikt informētas izvēles</h1>
           <p>Vai jau zini ko meklē?</p>
+          <img src={testScreenShoot} alt="" />
         </div>
         <div className="buttons">
           <Button text='Aizpildi testu' type='secondary' arrow='up' onClick={() => window.open("https://testi.niid.lv/", "_blank")} size='large' />
