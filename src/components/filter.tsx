@@ -17,12 +17,11 @@ interface HeaderProps {
       min: number,
       max: number
     },
-    profession: string
+    professions: string[]
   }
 }
 
 export default function Filter ({callback, callbackProfession, defaultFilter}: HeaderProps) {
-  console.log("render filter");
   const [active, setActive] = useState<boolean>(false)
 
   return <div className={`filter ${active ? "active" : ""}`}>

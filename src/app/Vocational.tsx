@@ -96,7 +96,7 @@ export default function Vocational() {
           <Sort callback={sortingCallback} selected={sort} />
           <Filter callback={filterCallback} callbackProfession={filterProfessionCallback} defaultFilter={filter} />
         </div>
-        <SchoolShort distance={16} school='Rīgas Mākslas un Mediju tehnikums' population='1.0k' rating='20/302' score={123} id='123'/>
+        <SchoolShort distance={16} school='Rīgas Mākslas un Mediju tehnikums' population='1.0k' rank='20/302' score={123} id='123'/>
       </div>
     </main>
   )
