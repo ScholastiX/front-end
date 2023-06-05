@@ -62,7 +62,7 @@ export default function AllSchools() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          pagination: {size: 10, offset: 0},
+          pagination: {size: 50, offset: 0},
           ...(geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : { targetLocation: { lat: 56.9630496, lon: 24.1075914 } }),
           sort: {
             direction: ascending ? "asc" : "desc",
