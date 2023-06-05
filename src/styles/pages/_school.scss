@@ -1,0 +1,67 @@
+main.school {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 5rem;
+  width: 100%;
+
+  .title {
+    width: 100%;
+    gap: .5rem;
+  }
+  .stats {
+    width: fit-content;
+    padding: 1.5rem;
+    background-color: $white;
+    border-radius: 1rem;
+    box-shadow: $shadow;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+
+      img {
+        height: 1rem;
+      }
+    }
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2rem;
+    height: fit-content;
+  }
+
+  .google-map {
+    width: 100%;
+    max-width: 40rem;
+    height: 20rem;
+    border-radius: 1rem;
+    box-shadow: $shadow;
+    overflow: hidden;
+  }
+
+  .reviews {
+    margin-bottom: 5rem;
+    .review {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 1rem;
+
+      p:first-of-type {
+        @include M;
+      }
+    }
+  }
+}

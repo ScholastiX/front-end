@@ -2,10 +2,15 @@
 
 import Marker from '../components/marker';
 import GoogleMapReact from "google-map-react"
+import { InlineWidget } from "react-calendly";
 
 import populationIcon from "../assets/icons/population.svg"
 import rankIcon from "../assets/icons/rank.svg"
 import OCEIcon from "../assets/icons/OCE.svg"
+import boardIcon from "../assets/icons/board.svg"
+import emptyStarIcon from "../assets/icons/star.svg"
+import fullStarIcon from "../assets/icons/star-filled.svg"
+import halfStarIcon from "../assets/icons/star-half.svg"
 
 const data = {
   "municipality": "Siguldas novads",
@@ -41,23 +46,23 @@ export default function AllSchools({ params }: { params: { school: string } }) {
   }
 
   return (
-    <main>
+    <main className='school'>
       <div className="title">
         <h1>{data.faculty_name}</h1>
         <p>{data.distance.toFixed(0)} km attālumā</p>
       </div>
-      <div className='stats'>
-        <div><img src={rankIcon} alt="Rank" /><p>{data.rank}/{data.ranktotal}</p></div>
-        <div><img src={OCEIcon} alt="OCE" /><p>{data.oce_index}</p></div>
-        <div><img src={populationIcon} alt="Pupil count" /><p>{data.pupils_grades_1_12_total}</p></div>
-        <div><img src="" alt="" /><p>{data.subordinate === "Pašvaldība " ? "Pašvaldības" : "Privātā"} izglītības iestāde</p></div>
+      <div>
+        <h2>Par skolu</h2>
+        <div className='stats'>
+          <div><img src={rankIcon} alt="Rank" /><p>{data.rank}/{data.ranktotal}</p></div>
+          <div><img src={OCEIcon} alt="OCE" /><p>{data.oce_index}</p></div>
+          <div><img src={populationIcon} alt="Pupil count" /><p>{data.pupils_grades_1_12_total}</p></div>
+          <div><img src={boardIcon} alt="Board style" /><p>{data.subordinate === "Pašvaldība " ? "Pašvaldības" : "Privātā"}</p></div>
+        </div>
       </div>
-      <h2>Piesaki vizīti</h2>
-      <div className="calendly-inline-widget" data-url="https://calendly.com/jekabs-1" style={{minWidth: "320px", height: "700px"}}></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <h2>Apmeklē skolu klātienē</h2>
       <div className="map">
-        <div className="google-map" style={{width: "700px", height: "700px"}}>
+        <h2>Apmeklē skolu klātienē</h2>
+        <div className="google-map">
           <GoogleMapReact
             bootstrapURLKeys={{ key: GOOGLEKEY }}
             defaultCenter={location}
@@ -71,11 +76,40 @@ export default function AllSchools({ params }: { params: { school: string } }) {
           </GoogleMapReact>
         </div>
       </div>
+      <div>
+        <h2>Piesaki vizīti</h2>
+        <InlineWidget url='https://calendly.com/jekabs-1' />
+      </div>
       <div className="contacts">
         <h2>Kontaktē skolu</h2>
         <p>Direktors: <span className="director">{data.director}</span></p>
         <p>Tālrunis: {data.phone}</p>
         <p>E-pasts: {data.email}</p>
+      </div>
+      <div className="reviews">
+        <h2>Atsauksmes no vecākiem un skolotājiem</h2>
+        <div className="review">
+          <p>Skolotāja</p>
+          <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam blandit, nunc nisl ultricies nunc, quis aliquam nisl nisl vitae nunc. Sed euismod, diam quis aliquam blandit, nunc nisl ultricies nunc, quis aliquam nisl nisl vitae nunc.”</p>
+          <div className="stars">
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={emptyStarIcon} alt="Star" />
+          </div>
+        </div>
+        <div className="review">
+          <p>Vecāks</p>
+          <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, diam quis aliquam blandit, nunc nisl ultricies nunc, quis aliquam nisl nisl vitae nunc. Sed euismod, diam quis aliquam blandit, nunc nisl ultricies nunc, quis aliquam nisl nisl vitae nunc.”</p>
+          <div className="stars">
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={fullStarIcon} alt="Star" />
+            <img src={halfStarIcon} alt="Star" />
+          </div>
+        </div>
       </div>
     </main>
   )

@@ -2,8 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import Filter from "../components/filter.tsx";
 import SchoolShort from "../components/school-short.tsx";
 import Sort from "../components/sort.tsx";
+import { useNavigate } from "react-router-dom";
+
+import arrowBack from "../assets/icons/left-arrow.svg";
 
 export default function AllSchools() {
+  const navigate = useNavigate();
   const [ sort, setSort ] = useState<"OCE" | "populous" | "rank" | "distance">("OCE");
   const [ filter, setFilter ] = useState({
     pupils: {
@@ -51,7 +55,7 @@ export default function AllSchools() {
   const schools = useCallback(async () => {
     console.log(".", (geolocation ? { targetLocation: { lat: geolocation.coords.latitude, lon: geolocation.coords.longitude } } : {}));
     try {
-      const res = await fetch("http://localhost:2380/", {
+      const res = await fetch("http://scholastix.nav.lv:1280/", {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +108,7 @@ export default function AllSchools() {
   return (
         <main>
           <div className="schools">
-            <h1>Profesionālās</h1>
+            <h1><img src={arrowBack} alt="Back arrow" onClick={() => navigate(-1)} /> Skolas</h1>
             <div className="search-section">
               <Sort callback={sortingCallback} selected={sort} />
               <Filter callback={filterCallback} callbackProfession={filterProfessionCallback} defaultFilter={filter} />

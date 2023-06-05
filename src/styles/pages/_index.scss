@@ -1,6 +1,17 @@
 main {
   h1 {
     @include XL;
+
+    img {
+      cursor: pointer;
+      height: 2rem;
+      transform: translateX(0);
+      transition: transform 0.25s ease-in-out;
+
+      &:hover {
+        transform: translateX(-0.5rem);
+      }
+    }
   }
   h2 {
     @include XL;
@@ -10,17 +21,32 @@ main {
   }
 
   .hero {
-    height: calc(100vh - 2rem);
+    min-height: calc(100vh - 2rem);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     padding: 2rem 0;
+    padding-bottom: 4rem;
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: .5rem;
+      width: 100%;
+
+      @media only screen and (min-width: 768px) {
+        align-items: center;
+        text-align: center;
+      }
+    }
 
     .buttons {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       gap: 2rem;
 
@@ -30,11 +56,23 @@ main {
         width: 100%;
         max-width: 30rem;
       }
+
+      @media only screen and (min-width: 768px) {
+        flex-direction: row-reverse;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    img {
+      width: 100%;
+      max-width: 40rem;
+      margin-top: 1rem;
     }
   }
 
   .about {
-    height: calc(100svh - 2rem);
+    min-height: calc(100svh - 2rem);
     display: flex;
     flex-direction: column;
     justify-content: space-around;

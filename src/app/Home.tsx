@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Button from '../components/button'
+import heroIllustration from "../assets/illustrations/hero.svg";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -10,10 +11,11 @@ export default function Home() {
         <div className="header">
           <h1>Sveicināts skolu meklētājā</h1>
           <p>Mēs palīdzēsim veikt pareizo skolas izvēli tev/tavam bērnam </p>
+          <img src={heroIllustration} alt="Classroom illustration" />
         </div>
         <div className="buttons">
           <Button text='Skolēns' type='primary' arrow='right' onClick={() => navigate("/student")} size='large' />
-          <Button text='Vecāks' type='secondary' arrow='left' onClick={() => {}} size='large' />
+          <Button text='Vecāks' type='secondary' arrow='left' onClick={() => navigate("/all-schools")} size='large' />
         </div>
       </div>
       <div className="about">
