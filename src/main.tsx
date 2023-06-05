@@ -6,8 +6,6 @@ import Home from "./app/Home.tsx";
 import "./styles/main.scss";
 import School from "./app/School.tsx";
 import Student from "./app/Student.tsx";
-import Traditional from "./app/Traditional.tsx";
-import Vocational from "./app/Vocational.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +15,6 @@ const router = createBrowserRouter([
   {
     path: "/student",
     element: <Student />,
-  },
-  {
-    path: "/vocational",
-    element: <Vocational />,
-  },
-  {
-    path: "/traditional",
-    element: <Traditional />,
   },
   {
     path: "/all-schools",
