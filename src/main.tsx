@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     element: <AllSchools />,
   },
   {
-    path: "/all-schools/:schoolId",
+    path: "/school/:schoolId",
     element: <School params={{ school: "" }} />,
   },
 ]);

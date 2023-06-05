@@ -11,13 +11,26 @@ interface HeaderProps {
   rankTotal: string;
   score: string;
   id: string;
+  board: string;
+  coordinates: {
+    lat: any,
+    lon: any
+  }
+  address: string;
+  phone: string;
+  email: string;
+  director: string;
 }
 
-export default function SchoolShort ({school, population, distance, rank, rankTotal, score, id}: HeaderProps) {
+export default function SchoolShort ({school, population, distance, rank, rankTotal, score, id, coordinates, board, address, phone, email, director}: HeaderProps) {
   const navigate = useNavigate();
 
+  const saveToLocalStorage = () => {
+    localStorage.setItem("school", JSON.stringify({school, population, distance, rank, rankTotal, score, id, board, coordinates, address, phone, email, director}));
+  }
+
   return (
-    <div className="school-short" onClick={() => navigate(`/school/${id}`)}>
+    <div className="school-short" onClick={() => {saveToLocalStorage(); navigate(`/school/${id}`)}}>
       <div className="school-short__header">
         <h3>{school}</h3>
         {distance ? <p>{distance.toFixed(1)}km</p> : null}

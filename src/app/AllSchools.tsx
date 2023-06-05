@@ -137,7 +137,9 @@ export default function AllSchools() {
             {foundSchools.map((v, i) => <SchoolShort
                   key={i} distance={v.distance} school={v.faculty_name}
                   id={v.faculty_nr} population={v.pupils_grades_1_12_total}
-                  rank={v.rank} rankTotal={v.ranktotal} score={v.oce_index} />)}
+                  rank={v.rank} rankTotal={v.ranktotal} score={v.oce_index} 
+                  board={v.subordinate} coordinates={{lat: v.lat, lon: v.lon}} 
+                  address={v.address} phone={v.phone} email={v.email} director={v.director} />)}
           </div>
         </main>
   );

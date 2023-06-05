@@ -11,6 +11,9 @@ import boardIcon from "../assets/icons/board.svg"
 import emptyStarIcon from "../assets/icons/star.svg"
 import fullStarIcon from "../assets/icons/star-filled.svg"
 import halfStarIcon from "../assets/icons/star-half.svg"
+import arrowBack from "../assets/icons/left-arrow.svg"
+
+import { useNavigate } from 'react-router-dom';
 
 const data = {
   "municipality": "Siguldas novads",
@@ -39,39 +42,46 @@ const data = {
 
 export default function AllSchools({ params }: { params: { school: string } }) {
   const GOOGLEKEY="AIzaSyBJbC7DxiyphaQrPJLnZoXxYaXYD5Btf-I"
-  const location = {
-    address: data.address,
-    lat: data.lat,
-    lng: data.lon,
+  const navigate = useNavigate();
+
+  const getDataFromLocalStorage = () => {
+    const school = localStorage.getItem("school");
+    const output = JSON.parse(school || "{}");
+    return { ...output };
   }
+
+  const dataFromLocalStorage = getDataFromLocalStorage();
 
   return (
     <main className='school'>
       <div className="title">
-        <h1>{data.faculty_name}</h1>
-        <p>{data.distance.toFixed(0)} km attālumā</p>
+        <h1><img src={arrowBack} alt="Back arrow" onClick={() => navigate(-1)} /> {dataFromLocalStorage.school}</h1>
+        {dataFromLocalStorage.distance && <p>{parseFloat(dataFromLocalStorage.distance).toFixed(0)} km attālumā</p>}
       </div>
       <div>
         <h2>Par skolu</h2>
         <div className='stats'>
-          <div><img src={rankIcon} alt="Rank" /><p>{data.rank}/{data.ranktotal}</p></div>
-          <div><img src={OCEIcon} alt="OCE" /><p>{data.oce_index}</p></div>
-          <div><img src={populationIcon} alt="Pupil count" /><p>{data.pupils_grades_1_12_total}</p></div>
-          <div><img src={boardIcon} alt="Board style" /><p>{data.subordinate === "Pašvaldība " ? "Pašvaldības" : "Privātā"}</p></div>
+          <div><img src={rankIcon} alt="Rank" /><p>{dataFromLocalStorage.rank}/{dataFromLocalStorage.rankTotal}</p></div>
+          <div><img src={OCEIcon} alt="OCE" /><p>{dataFromLocalStorage.score}</p></div>
+          <div><img src={populationIcon} alt="Pupil count" /><p>{dataFromLocalStorage.population}</p></div>
+          <div><img src={boardIcon} alt="Board style" /><p>{dataFromLocalStorage.board === "Pašvaldība " ? "Pašvaldības" : "Privātā"}</p></div>
         </div>
       </div>
       <div className="map">
-        <h2>Apmeklē skolu klātienē</h2>
+        <div className="header">
+          <h2>Apmeklē skolu klātienē</h2>
+          <p>Adrese: {dataFromLocalStorage.address}</p>
+        </div>
         <div className="google-map">
           <GoogleMapReact
             bootstrapURLKeys={{ key: GOOGLEKEY }}
-            defaultCenter={location}
+            defaultCenter={dataFromLocalStorage.coordinates.lat && dataFromLocalStorage.coordinates.lon ? { lat: parseFloat(dataFromLocalStorage.coordinates.lat), lng: parseFloat(dataFromLocalStorage.coordinates.lon) } : { lat: 57.1584109, lng: 24.859166703619493 }}
             defaultZoom={14}
           >
           <Marker
-            lat={location.lat}
-            lng={location.lng}
-            text={location.address}
+            lat={dataFromLocalStorage.coordinates.lat ? parseFloat(dataFromLocalStorage.coordinates.lat) : 57.1584109}
+            lng={dataFromLocalStorage.coordinates.lon ? parseFloat(dataFromLocalStorage.coordinates.lon) : 57.1584109}
+            text={dataFromLocalStorage.address ? dataFromLocalStorage.address : "Siguldas Valsts ģimnāzija, 7, Ata Kronvalda iela, Sigulda, Siguldas novads, Vidzeme, LV-2150, Latvija"}
           />
           </GoogleMapReact>
         </div>
@@ -82,9 +92,9 @@ export default function AllSchools({ params }: { params: { school: string } }) {
       </div>
       <div className="contacts">
         <h2>Kontaktē skolu</h2>
-        <p>Direktors: <span className="director">{data.director}</span></p>
-        <p>Tālrunis: {data.phone}</p>
-        <p>E-pasts: {data.email}</p>
+        <p>Direktors: <span className="director">{dataFromLocalStorage.director}</span></p>
+        <p>Tālrunis: {dataFromLocalStorage.phone}</p>
+        <p>E-pasts: {dataFromLocalStorage.email}</p>
       </div>
       <div className="reviews">
         <h2>Atsauksmes no vecākiem un skolotājiem</h2>
